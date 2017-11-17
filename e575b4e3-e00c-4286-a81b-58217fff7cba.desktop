@@ -1,0 +1,16 @@
+[Desktop Entry]
+Type=Action
+Name[en_GB]=Convert to .py
+Name[en]=Convert to .py
+Name[C]=Convert to .py
+ToolbarLabel[en_GB]=Convert to .py
+ToolbarLabel[en]=Convert to .py
+ToolbarLabel[C]=Convert to .py
+Profiles=profile-zero;
+
+[X-Action-Profile profile-zero]
+Name[en_GB]=Default profile
+Name[en]=Default profile
+Name[C]=Default profile
+Exec=/usr/bin/convert_ui_to_py.sh %w
+Basenames=*.ui;

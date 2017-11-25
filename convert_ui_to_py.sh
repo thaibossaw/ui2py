@@ -31,7 +31,7 @@ else
 fi
 
 # Convert file...
-if [ $stop == 0 ]
+if [ ${stop} == 0 ]
 then
     pyuic4 -o ${filename}.py ${filename}.ui
     notify-send "Conversion completed" \ "${filename}.ui > ${filename}.py"

@@ -2,18 +2,37 @@
 
 # 17/11/2017
 # Thomas Holmes
-# Simple Qt .ui to .py convertor
+# Simple Qt .ui to .py converter
 # Meant for use in conjunction with nautilus-actions.
 
 filename=$1
+stop=1
 
-if [ -e $filename.py ]
+# Check the UI file exists...
+if [ -e ${filename}.ui ]
 then
-    notify-send "Cannot complete conversion" \ "$filename.py already exists."
-elif [ -e $filename.ui ]
-then
-    pyuic4 -o $filename.py $filename.ui
-    notify-send "Conversion completed" \ "$filename.ui > $filename.py"
+    stop=0
 else
-    notify-send "Cannot complete conversion" \ "$filename.ui does not exist."
+    notify-send "Conversion Cancelled" \ "${filename}.ui does not exist."
+    stop=1
+fi
+
+# Check the Py file exists...
+if [ -e ${filename}.py ]
+then
+    zenity --question --title "Overwrite file?" --text "The file ${filename}.py already exists. Overwrite?"
+    if [ $? == 1 ]
+    then
+        notify-send "Conversion Cancelled" \ "User aborted operation."
+        stop=1
+    fi
+else
+    stop=0
+fi
+
+# Convert file...
+if [ $stop == 0 ]
+then
+    pyuic4 -o ${filename}.py ${filename}.ui
+    notify-send "Conversion completed" \ "${filename}.ui > ${filename}.py"
 fi
